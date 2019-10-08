@@ -31,8 +31,9 @@ getDependencies <- function(packs){
 
 packages <- getDependencies(packs)
 
-# Download the packages to the working directory.
-# Package names and filenames are returned in a matrix.
-pkgInfo <- download.packages(pkgs = packages, destdir = dest.path, type = bin.type)
-# Save just the package file names (basename() strips off the full paths leaving just the filename)
-write.csv(file = paste0(dest.path, "pkgFilenames.csv"), basename(pkgInfo[, 2]), row.names = FALSE)
+# remove any core packages
+core.packages <- c("base", "compiler", "datasets", "graphics", "grDevices", 
+                   "grid", "methods", "parallel", "splines", "stats", "stats4", 
+                   "tcltk", "tools", "utils")
+packages <- setdiff(packages, core.packages)
+
