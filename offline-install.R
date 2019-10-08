@@ -11,4 +11,26 @@ setwd(bin.path)
 
 # Read the package filenames and install
 pkgFilenames <- read.csv("pkgFilenames.csv", stringsAsFactors = FALSE)[, 1]
-install.packages(pkgFilenames, repos = NULL, type = bin.type)
+
+# check against already installed packages
+extensions <- list(
+  "source" = ".tar.gz", 
+  "mac.binary" = ".tgz", 
+  "mac.binary.el-capitan" = ".tgz", 
+  "win.binary" = ".zip"
+)
+
+downloaded <- gsub(extensions[[type]], "", pkgFilenames, fixed = TRUE)
+installed <- installed.packages()
+installed <- paste0(installed[, 1], "_", installed[, 3])
+downloaded <- setdiff(downloaded, installed)
+
+# install
+if(length(downloaded) > 0){
+  print("Installing packages...")
+  install.packages(paste0(downloaded, extensions[[type]]), repos = NULL, 
+                   type = type, quiet = TRUE)
+} else {
+  print("Desired packages already installed.")
+}
+
