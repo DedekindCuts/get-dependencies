@@ -7,9 +7,10 @@ bin.type <- "win.binary"
 bin.path <- "TARGET_FOLDER"
 
 # change to the target directory
-setwd(bin.path)
+starting.wd <- getwd()
+setwd(pkg.path)
 
-# Read the package filenames and install
+# read the package filenames
 pkgFilenames <- read.csv("pkgFilenames.csv", stringsAsFactors = FALSE)[, 1]
 
 # check against already installed packages
@@ -34,3 +35,5 @@ if(length(downloaded) > 0){
   print("Desired packages already installed.")
 }
 
+# change back to the starting directory
+setwd(starting.wd)
