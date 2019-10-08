@@ -1,10 +1,19 @@
 # script for offline installing a list of packages from pre-downloaded binaries
 
-# type of binaries to be installed (one of "win.binary" (for Windows) or "source" (for Mac))
-bin.type <- "win.binary"
+# 
+# Configuration
+# -----------------------------------------------------------------------------
+
+# type of packages (one of "source", "mac.binary", "mac.binary.el-capitan", or 
+# "win.binary"––see README for more information)
+type <- "mac.binary.el-capitan"
 
 # the location of the package files
-bin.path <- "TARGET_FOLDER"
+pkg.path <- "./downloads/"
+
+# 
+# Install packages
+# -----------------------------------------------------------------------------
 
 # change to the target directory
 starting.wd <- getwd()
